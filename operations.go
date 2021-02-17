@@ -139,6 +139,6 @@ func (this *bitArray) Between(a BitArray, b BitArray) bool {
 }
 
 // Returns the percentage of 'true' bits.
-func (this *bitArray) Sparsity() float32 {
-	return float32(this.Size()) / 100 * float32(this.Norm())
+func (this *bitArray) Sparsity() float64 {
+	return float64(this.Norm()) / float64(this.Size()) * 100
 }

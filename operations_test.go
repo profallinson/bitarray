@@ -305,13 +305,22 @@ func TestOperations(t *testing.T) {
 
 	})
 
-	Describe("Circle()", func() {
+	Describe("Sparsity()", func() {
 
-		// It("should return?", func() {
-		// 	a := NewBitArrayFromString("10001")
-		// 	a.Circle()
-		// 	AssertEqual(true, false)
-		// })
+		It("should return 0", func() {
+			a := NewBitArrayFromString("0")
+			AssertEqual(a.Sparsity(), 0.0)
+		})
+
+		It("should return 1.5625", func() {
+			a := NewBitArrayFromString("1")
+			AssertEqual(a.Sparsity(), 1.5625)
+		})
+
+		It("should return 100.0", func() {
+			a := NewBitArray(1).Complement()
+			AssertEqual(a.Sparsity(), 100.0)
+		})
 
 	})
 

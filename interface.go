@@ -20,7 +20,7 @@ type BitArray interface {
 	OverlapInt(BitArray) int
 	Overlap(BitArray) float32
 	Between(BitArray, BitArray) bool
-	Sparsity() float32
+	Sparsity() float64
 
 	ToString() string
 	ToBytes() []uint8
