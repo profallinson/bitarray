@@ -1,0 +1,9 @@
+language: go
+go:
+    - 1.11
+    - tip
+install:
+    - go get github.com/ricallinson/simplebdd
+os:
+  - linux
+  - osx
