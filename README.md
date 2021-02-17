@@ -1,3 +1,5 @@
+[![Build Status](https://www.travis-ci.org/profallinson/bitarray.svg?branch=main)](https://www.travis-ci.org/profallinson/bitarray)
+
 # bitarray
 
 ## Testing
