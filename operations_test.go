@@ -235,16 +235,16 @@ func TestOperations(t *testing.T) {
 			AssertEqual(true, false)
 		})
 
-		It("should ", func() {
-			a := NewBitArrayFromString("10000")
-			b := NewBitArrayFromString("00000")
-			AssertEqual(a.OverlapInt(b), 63)
+		It("should return 2", func() {
+			a := NewBitArrayFromString("10010")
+			b := NewBitArrayFromString("10110")
+			AssertEqual(a.OverlapInt(b), 2)
 		})
 
-		It("should ", func() {
+		It("should return 0", func() {
 			a := NewBitArrayFromString("11110")
 			b := NewBitArrayFromString("00001")
-			AssertEqual(a.OverlapInt(b), 59)
+			AssertEqual(a.OverlapInt(b), 0)
 		})
 
 		It("should 'panic()' as they are different sizes (in multiples of 64)", func() {
@@ -259,16 +259,16 @@ func TestOperations(t *testing.T) {
 			AssertEqual(true, false)
 		})
 
-		It("should ", func() {
-			a := NewBitArrayFromString("10000")
-			b := NewBitArrayFromString("00000")
-			AssertEqual(a.Overlap(b), float32(0.984375))
+		It("should return 0.03125", func() {
+			a := NewBitArrayFromString("10010")
+			b := NewBitArrayFromString("10110")
+			AssertEqual(a.Overlap(b), float32(0.03125))
 		})
 
-		It("should ", func() {
+		It("should return 0.0", func() {
 			a := NewBitArrayFromString("11110")
 			b := NewBitArrayFromString("00001")
-			AssertEqual(a.Overlap(b), float32(0.921875))
+			AssertEqual(a.Overlap(b), float32(0.0))
 		})
 
 	})
