@@ -1,5 +1,9 @@
 package bitarray
 
+import (
+	"math/bits"
+)
+
 // Returns 'true' if the given array is a bit match.
 func (this *bitArray) Equal(a BitArray) bool {
 	if this.Size() != a.Size() {
@@ -28,11 +32,8 @@ func (this *bitArray) Difference(a BitArray) BitArray {
 // Returns the bit count of 'true' values.
 func (this *bitArray) Norm() uint64 {
 	n := uint64(0)
-	var i uint64
-	for i = 0; i < this.Size(); i++ {
-		if this.Read(i) {
-			n++
-		}
+	for i := range this.blocks {
+		n += uint64(bits.OnesCount64(uint64(this.GetBlock(i))))
 	}
 	return n
 }
