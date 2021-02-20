@@ -110,12 +110,18 @@ func (this *bitArray) overlapInt(a BitArray) (int, int) {
 		panic("BitArrays MUST be the same length.")
 	}
 	o := 0
+	
 	var i uint64
 	for i = 0; i < this.Size(); i++ {
 		if this.Read(i) == a.Read(i) {
 			o++
 		}
 	}
+
+	// for i := range this.blocks {
+	// 	o += bits.OnesCount64(uint64(this.GetBlock(i)&a.GetBlock(i)))
+	// }
+
 	return int(this.Size()), o
 }
 
