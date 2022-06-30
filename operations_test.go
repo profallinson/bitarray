@@ -31,7 +31,7 @@ func TestOperations(t *testing.T) {
 
 		It("should return 'false' as they are different sizes (in multiples of 64)", func() {
 			a := NewBitArrayOfLength(64)
-			b := NewBitArrayOfLength(65)
+			b := NewBitArrayOfLength(128)
 			AssertEqual(a.Equal(b), false)
 		})
 
@@ -276,7 +276,7 @@ func TestOperations(t *testing.T) {
 	Describe("Betweenness()", func() {
 
 		It("should return 'false' as 'a' is a different length", func() {
-			a := NewBitArrayOfLength(65)
+			a := NewBitArrayOfLength(128)
 			b := NewBitArrayOfLength(64)
 			c := NewBitArrayOfLength(64)
 			AssertEqual(b.Between(a, c), false)
@@ -284,14 +284,14 @@ func TestOperations(t *testing.T) {
 
 		It("should return 'false' as 'b' is a different length", func() {
 			a := NewBitArrayOfLength(64)
-			b := NewBitArrayOfLength(65)
+			b := NewBitArrayOfLength(128)
 			c := NewBitArrayOfLength(64)
 			AssertEqual(b.Between(a, c), false)
 		})
 
 		It("should return 'false' as 'c' is a different length", func() {
 			a := NewBitArrayOfLength(64)
-			b := NewBitArrayOfLength(65)
+			b := NewBitArrayOfLength(128)
 			c := NewBitArrayOfLength(64)
 			AssertEqual(b.Between(a, c), false)
 		})

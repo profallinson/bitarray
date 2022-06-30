@@ -1,6 +1,7 @@
 package bitarray
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
 )
@@ -18,12 +19,11 @@ func NewBitArray(blocks uint64) BitArray {
 
 // Size is the number of bits to use.
 func NewBitArrayOfLength(length uint64) BitArray {
-	size := uint64(length / bitBlockSize)
-	// If the given string is not divisible by 'bitBlockSize' then increase the 'size' by 1.
-	if length%bitBlockSize > 0 {
-		size++
+	// If the given string is not divisible by 'bitBlockSize' then end.
+	if length%bitBlockSize != 0 {
+		panic(fmt.Sprint("length must be a multiple of ", bitBlockSize))
 	}
-	return createBitArray(size)
+	return createBitArray(uint64(length / bitBlockSize))
 }
 
 // Returns an array of size 'blocks' initialized with the given 'sparsity'.
@@ -40,7 +40,7 @@ func NewBitArrayOfSparsity(length uint64, sparsity float32) BitArray {
 func NewBitArrayFromString(str string) BitArray {
 	size := uint64(len(str) / bitBlockSize)
 	// If the given string is not divisible by 'bitBlockSize' then increase the 'size' by 1.
-	if len(str)%bitBlockSize > 0 {
+	if len(str)%bitBlockSize != 0 {
 		size++
 	}
 	this := createBitArray(size)
@@ -84,7 +84,7 @@ func NewBitArrayFromUint64(nums []uint64) BitArray {
 func NewBitArrayFromBools(bools []bool) BitArray {
 	size := uint64(len(bools) / bitBlockSize)
 	// If the given string is not divisible by 'bitBlockSize' then increase the 'size' by 1.
-	if len(bools)%bitBlockSize > 0 {
+	if len(bools)%bitBlockSize != 0 {
 		size++
 	}
 	this := createBitArray(size)

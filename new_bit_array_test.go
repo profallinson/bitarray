@@ -172,9 +172,13 @@ func TestNewBitArray(t *testing.T) {
 			AssertEqual(this.Size(), uint64(64))
 		})
 
-		It("should return a new BitArray 128 bits long", func() {
-			this := NewBitArrayOfLength(uint64(65))
-			AssertEqual(this.Size(), uint64(128))
+		It("should panic as length is not a multiple of 64", func() {
+			defer func() {
+				if r := recover(); r != nil {
+					AssertEqual(true, true)
+				}
+			}()
+			NewBitArrayOfLength(uint64(65))
 		})
 
 	})
@@ -182,27 +186,27 @@ func TestNewBitArray(t *testing.T) {
 	Describe("NewBitArrayOfSparsity()", func() {
 
 		It("should return a Norm() of 12", func() {
-			this := NewBitArrayOfSparsity(64, 20)
+			this := NewBitArrayOfSparsity(64, .2)
 			AssertEqual(this.Norm(), uint64(12))
 		})
 
 		It("should return a Norm() of 25", func() {
-			this := NewBitArrayOfSparsity(64, 40)
+			this := NewBitArrayOfSparsity(64, .4)
 			AssertEqual(this.Norm(), uint64(25))
 		})
 
 		It("should return a Norm() of 38", func() {
-			this := NewBitArrayOfSparsity(64, 60)
+			this := NewBitArrayOfSparsity(64, .6)
 			AssertEqual(this.Norm(), uint64(38))
 		})
 
 		It("should return a Norm() of 51", func() {
-			this := NewBitArrayOfSparsity(64, 80)
+			this := NewBitArrayOfSparsity(64, .8)
 			AssertEqual(this.Norm(), uint64(51))
 		})
 
 		It("should return a Norm() of 64", func() {
-			this := NewBitArrayOfSparsity(64, 100)
+			this := NewBitArrayOfSparsity(64, 1)
 			AssertEqual(this.Norm(), uint64(64))
 		})
 
