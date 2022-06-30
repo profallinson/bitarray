@@ -1,8 +1,15 @@
 package bitarray
 
 import (
-	"fmt"
+	"math/rand"
+	"time"
 )
+
+func shuffleBoolArray(a []bool) []bool {
+	rand.Seed(time.Now().UnixNano())
+	rand.Shuffle(len(a), func(i, j int) { a[i], a[j] = a[j], a[i] })
+	return a
+}
 
 // Size is the number of 64 bit blocks to use.
 func NewBitArray(blocks uint64) BitArray {
@@ -19,16 +26,14 @@ func NewBitArrayOfLength(length uint64) BitArray {
 	return createBitArray(size)
 }
 
-// TODO: Add distribution throughout the array.
 // Returns an array of size 'blocks' initialized with the given 'sparsity'.
 func NewBitArrayOfSparsity(length uint64, sparsity float32) BitArray {
 	this := NewBitArrayOfLength(length)
-	space := uint64(float32(length) / 100 * sparsity)
-	fmt.Println(this.Size(), space)
+	space := uint64(float32(length) * sparsity)
 	for i := uint64(0); i < space; i++ {
 		this.Write(i, true)
 	}
-	return this
+	return NewBitArrayFromBools(shuffleBoolArray(this.ToBools()))
 }
 
 // Given a string of '0's and '1's returns a populated bit array.
