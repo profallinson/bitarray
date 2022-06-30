@@ -61,7 +61,7 @@ func (this *bitArray) ToUint64() []uint64 {
 
 // Returns an array of booleans representing the bit array.
 func (this *bitArray) ToBools() []bool {
-	r := make([]bool, this.Size())
+	r := make([]bool, 0)
 	for i, _ := range this.blocks {
 		r = append(r, this.blocks[i].ToBools()...)
 	}
