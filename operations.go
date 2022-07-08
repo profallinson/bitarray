@@ -1,6 +1,8 @@
 package bitarray
 
 import (
+	"fmt"
+	"math"
 	"math/bits"
 )
 
@@ -110,18 +112,9 @@ func (this *bitArray) overlapInt(a BitArray) (int, int) {
 		panic("BitArrays MUST be the same length.")
 	}
 	o := 0
-
-	// var i uint64
-	// for i = 0; i < this.Size(); i++ {
-	// 	if this.Read(i) == a.Read(i) {
-	// 		o++
-	// 	}
-	// }
-
 	for i := range this.blocks {
 		o += bits.OnesCount64(uint64(this.GetBlock(i) & a.GetBlock(i)))
 	}
-
 	return int(this.Size()), o
 }
 
@@ -148,4 +141,23 @@ func (this *bitArray) Between(a BitArray, b BitArray) bool {
 // Returns the percentage of 'true' bits.
 func (this *bitArray) Sparsity() float64 {
 	return float64(this.Norm()) / float64(this.Size()) * 100
+}
+
+// If the bit array length can be squared to an `uint64` then it's content are rotated by the given `deg`.
+func (this *bitArray) Rotate(deg int) {
+	sqrt := math.Sqrt(float64(this.Size()))
+	size := uint64(sqrt)
+	if sqrt != float64(size) {
+		panic("Can only rotate arrays which can square to a `uint64`.")
+	}
+	for w := uint64(0); w < size*size; w += size {
+		oldX := w/size + 1
+		for i := w; i < w+size; i++ {
+			oldY := i - w + 1
+			fmt.Printf("%02dx%02d %02d\n", oldX, oldY, i)
+			// newXPosition = ceil(cos(N*PI/180)*(oldXPosition - M/2) - sin(N*PI/180)*(oldYPosition - M/2) + M/2)
+			// newYPosition = ceil(sin(N*PI/180)*(oldXPosition - M/2) + cos(N*PI/180)*(oldYPosition - M/2) + M/2)
+		}
+	}
+	fmt.Println()
 }
