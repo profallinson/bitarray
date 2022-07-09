@@ -21,7 +21,7 @@ type BitArray interface {
 	Overlap(BitArray) float32
 	Between(BitArray, BitArray) bool
 	Sparsity() float64
-	Rotate(int)
+	Rotate(float64) BitArray
 
 	ToString() string
 	ToBytes() []uint8

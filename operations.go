@@ -144,20 +144,29 @@ func (this *bitArray) Sparsity() float64 {
 }
 
 // If the bit array length can be squared to an `uint64` then it's content are rotated by the given `deg`.
-func (this *bitArray) Rotate(deg int) {
+func (this *bitArray) Rotate(deg float64) BitArray {
 	sqrt := math.Sqrt(float64(this.Size()))
 	size := uint64(sqrt)
+	// halfSize := sqrt/2
 	if sqrt != float64(size) {
-		panic("Can only rotate arrays which can square to a `uint64`.")
+		panic("Will only rotate arrays which can square to a `uint64`.")
 	}
+	fmt.Println(deg)
+	n := NewBitArrayOfLength(this.Size())
 	for w := uint64(0); w < size*size; w += size {
-		oldX := w/size + 1
-		for i := w; i < w+size; i++ {
-			oldY := i - w + 1
-			fmt.Printf("%02dx%02d %02d\n", oldX, oldY, i)
-			// newXPosition = ceil(cos(N*PI/180)*(oldXPosition - M/2) - sin(N*PI/180)*(oldYPosition - M/2) + M/2)
-			// newYPosition = ceil(sin(N*PI/180)*(oldXPosition - M/2) + cos(N*PI/180)*(oldYPosition - M/2) + M/2)
+		oldY := float64(w/size)+1
+		for oldI := w; oldI < w+size; oldI++ {
+			oldX := float64(oldI - w)+1
+			sin, cos := math.Sincos(deg*math.Pi/180)
+			newX := math.Abs(math.Round((cos * oldX) + (sin * oldY)))
+			newY := math.Abs(math.Round((cos * oldY) - (sin * oldX)))
+			newI := ((uint64(newX-1)+uint64(newY-1)*size))
+			if newI >= 0 && newI < this.Size() {
+				n.Write(newI, this.Read(oldI))
+			}
+			fmt.Printf("%02fx%02f %02d : %02fx%02f %02d\n", oldX, oldY, oldI, newX, newY, newI)
+			// fmt.Printf("%02fx%02f %02d\n", oldX, oldY, oldI)
 		}
 	}
-	fmt.Println()
+	return n
 }

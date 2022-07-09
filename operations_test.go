@@ -326,7 +326,6 @@ func TestOperations(t *testing.T) {
 
 	Describe("Rotate()", func() {
 
-		// Source Bit Array
 		// 00011000
 		// 00111100
 		// 01000010
@@ -335,31 +334,67 @@ func TestOperations(t *testing.T) {
 		// 01000010
 		// 00100100
 		// 00011000
-
 		source := "0001100000111100010000101000000110000001010000100010010000011000"
 
 		It("should rotate the bit array by 90 deg", func() {
 			a := NewBitArrayFromString(source)
-			a.Rotate(90)
-			AssertEqual(a.ToString(), "")
+			n := a.Rotate(90)
+			// 00011000
+			// 00100100
+			// 01000010
+			// 11000001
+			// 11000001
+			// 01000010
+			// 00100100
+			// 00011000
+			AssertEqual(n.ToString(), "0001100000100100010000101000001110000011010000100010010000011000")
 		})
 
 		It("should rotate the bit array by 180 deg", func() {
 			a := NewBitArrayFromString(source)
-			a.Rotate(180)
-			AssertEqual(a.ToString(), "")
+			n := a.Rotate(180)
+			// 00011000
+			// 00111100
+			// 01000010
+			// 10000001
+			// 10000001
+			// 01000010
+			// 00100100
+			// 00011000
+			AssertEqual(n.ToString(), "0001100000100100010000101000000110000001010000100011110000011000")
 		})
 
 		It("should rotate the bit array by 270 deg", func() {
 			a := NewBitArrayFromString(source)
-			a.Rotate(270)
-			AssertEqual(a.ToString(), "")
+			n := a.Rotate(270)
+			// 00011000
+			// 00100100
+			// 01000010
+			// 11000001
+			// 11000001
+			// 01000010
+			// 00100100
+			// 00011000
+			AssertEqual(n.ToString(), "0001100000100100010000101100000111000001010000100010010000011000")
 		})
 
 		It("should rotate the bit array by 360 deg", func() {
 			a := NewBitArrayFromString(source)
-			a.Rotate(360)
-			AssertEqual(a.ToString(), source)
+			n := a.Rotate(360)
+			AssertEqual(n.ToString(), a.ToString())
+		})
+
+		It("should rotate the bit array by 720 deg", func() {
+			a := NewBitArrayFromString(source)
+			n := a.Rotate(720)
+			AssertEqual(n.ToString(), a.ToString())
+		})
+
+		It("should rotate the bit array by 45 deg", func() {
+			a := NewBitArrayFromString(source)
+			n := a.Rotate(45)
+			// 
+			AssertEqual(n.ToString(), "")
 		})
 
 	})
