@@ -339,42 +339,24 @@ func TestOperations(t *testing.T) {
 		It("should rotate the bit array by 90 deg", func() {
 			a := NewBitArrayFromString(source)
 			n := a.Rotate(90)
-			// 00011000
-			// 00100100
-			// 01000010
-			// 11000001
-			// 11000001
-			// 01000010
-			// 00100100
-			// 00011000
+			AssertEqual(n.ToString(), "0001100000100100010000101000001110000011010000100010010000011000")
+		})
+
+		It("should rotate the bit array by -90 deg", func() {
+			a := NewBitArrayFromString(source)
+			n := a.Rotate(-90)
 			AssertEqual(n.ToString(), "0001100000100100010000101000001110000011010000100010010000011000")
 		})
 
 		It("should rotate the bit array by 180 deg", func() {
 			a := NewBitArrayFromString(source)
 			n := a.Rotate(180)
-			// 00011000
-			// 00111100
-			// 01000010
-			// 10000001
-			// 10000001
-			// 01000010
-			// 00100100
-			// 00011000
 			AssertEqual(n.ToString(), "0001100000100100010000101000000110000001010000100011110000011000")
 		})
 
 		It("should rotate the bit array by 270 deg", func() {
 			a := NewBitArrayFromString(source)
 			n := a.Rotate(270)
-			// 00011000
-			// 00100100
-			// 01000010
-			// 11000001
-			// 11000001
-			// 01000010
-			// 00100100
-			// 00011000
 			AssertEqual(n.ToString(), "0001100000100100010000101100000111000001010000100010010000011000")
 		})
 
@@ -390,12 +372,11 @@ func TestOperations(t *testing.T) {
 			AssertEqual(n.ToString(), a.ToString())
 		})
 
-		It("should rotate the bit array by 45 deg", func() {
-			a := NewBitArrayFromString(source)
-			n := a.Rotate(45)
-			// 
-			AssertEqual(n.ToString(), "")
-		})
+		// It("should rotate the bit array by 45 deg", func() {
+		// 	a := NewBitArrayFromString(source)
+		// 	n := a.Rotate(45)
+		// 	AssertEqual(n.ToString(), "")
+		// })
 
 	})
 
