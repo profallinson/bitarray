@@ -326,7 +326,7 @@ func TestOperations(t *testing.T) {
 
 	Describe("Rotate()", func() {
 
-		// 00011000
+		// 10011000
 		// 00111100
 		// 01000010
 		// 10000001
@@ -334,49 +334,56 @@ func TestOperations(t *testing.T) {
 		// 01000010
 		// 00100100
 		// 00011000
-		source := "0001100000111100010000101000000110000001010000100010010000011000"
+		source := "1001100000111100010000101000000110000001010000100010010000011000"
 
 		It("should rotate the bit array by 90 deg", func() {
 			a := NewBitArrayFromString(source)
 			n := a.Rotate(90)
-			AssertEqual(n.ToString(), "0001100000100100010000101000001110000011010000100010010000011000")
+			PrintMatrix(90, n.ToString(), uint64(8))
+			AssertEqual(n.ToString(), "0001100100100100010000101000001110000011010000100010010000011000")
 		})
 
 		It("should rotate the bit array by -90 deg", func() {
 			a := NewBitArrayFromString(source)
 			n := a.Rotate(-90)
-			AssertEqual(n.ToString(), "0001100000100100010000101000001110000011010000100010010000011000")
+			PrintMatrix(-90, n.ToString(), uint64(8))
+			AssertEqual(n.ToString(), "0001100000100100010000101100000111000001010000100010010010011000")
 		})
 
 		It("should rotate the bit array by 180 deg", func() {
 			a := NewBitArrayFromString(source)
 			n := a.Rotate(180)
-			AssertEqual(n.ToString(), "0001100000100100010000101000000110000001010000100011110000011000")
+			PrintMatrix(180, n.ToString(), uint64(8))
+			AssertEqual(n.ToString(), "0001100000100100010000101000000110000001010000100011110000011001")
 		})
 
 		It("should rotate the bit array by 270 deg", func() {
 			a := NewBitArrayFromString(source)
 			n := a.Rotate(270)
-			AssertEqual(n.ToString(), "0001100000100100010000101100000111000001010000100010010000011000")
+			PrintMatrix(270, n.ToString(), uint64(8))
+			AssertEqual(n.ToString(), "0001100000100100010000101100000111000001010000100010010010011000")
 		})
 
 		It("should rotate the bit array by 360 deg", func() {
 			a := NewBitArrayFromString(source)
 			n := a.Rotate(360)
+			PrintMatrix(360, n.ToString(), uint64(8))
 			AssertEqual(n.ToString(), a.ToString())
 		})
 
 		It("should rotate the bit array by 720 deg", func() {
 			a := NewBitArrayFromString(source)
 			n := a.Rotate(720)
+			PrintMatrix(720, n.ToString(), uint64(8))
 			AssertEqual(n.ToString(), a.ToString())
 		})
 
-		// It("should rotate the bit array by 45 deg", func() {
-		// 	a := NewBitArrayFromString(source)
-		// 	n := a.Rotate(45)
-		// 	AssertEqual(n.ToString(), "")
-		// })
+		It("should rotate the bit array by 45 deg", func() {
+			a := NewBitArrayFromString(source)
+			n := a.Rotate(45)
+			PrintMatrix(45, n.ToString(), uint64(8))
+			AssertEqual(n.ToString(), "0000000001010110000000100000001000000010000000000101101000000000")
+		})
 
 	})
 

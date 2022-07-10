@@ -143,9 +143,10 @@ func (this *bitArray) Sparsity() float64 {
 	return float64(this.Norm()) / float64(this.Size()) * 100
 }
 
-func PrintMatrix(s string, size uint64) {
+func PrintMatrix(deg float64, s string, size uint64) {
 	start := uint64(0)
 	end := size
+	fmt.Println(deg)
 	for end <= size*size {
 		fmt.Println(s[start:end])
 		start += size
@@ -161,23 +162,19 @@ func (this *bitArray) Rotate(deg float64) BitArray {
 	if sqrt != float64(uint64(sqrt)) {
 		panic("Will only rotate arrays which can square to a `uint64`.")
 	}
-	fmt.Println("---", deg)
 	n := NewBitArrayOfLength(this.Size())
 	sin, cos := math.Sincos(deg * math.Pi / 180)
+	oldI := uint64(0)
 	for oldY := offset * -1; oldY <= offset; oldY++ {
 		for oldX := offset * -1; oldX <= offset; oldX++ {
-			// y’ = ycos - xsin
-			newY := math.Abs(math.Round(((oldY * cos) - (oldX * sin)) + offset))
-			// x’ = xcos + ysin
-			newX := math.Abs(math.Round(((oldX * cos) + (oldY * sin)) + offset))
-			oldI := uint64(((oldY + offset) * sqrt) + oldX + offset)
+			newX := math.Abs(math.Round(((oldX * cos) - (oldY * sin)) + offset)) // x’ = Xcos - Ysin
+			newY := math.Abs(math.Round(((oldX * sin) + (oldY * cos)) + offset)) // y’ = Xsin + Ycos
 			newI := uint64((newY * sqrt) + newX)
 			if newI >= 0 && newI < this.Size() {
 				n.Write(newI, this.Read(oldI))
 			}
-			fmt.Println(oldY+offset, oldX+offset, oldI, newY, newX, newI)
+			oldI++
 		}
 	}
-	PrintMatrix(n.ToString(), uint64(sqrt))
 	return n
 }
