@@ -1,7 +1,7 @@
 package bitarray
 
 import (
-	"fmt"
+	// "fmt"
 	"math"
 	"math/bits"
 )
@@ -143,25 +143,10 @@ func (this *bitArray) Sparsity() float64 {
 	return float64(this.Norm()) / float64(this.Size()) * 100
 }
 
-func PrintMatrix(deg float64, s string, size uint64) {
-	start := uint64(0)
-	end := size
-	fmt.Println(deg)
-	for end <= size*size {
-		fmt.Println(s[start:end])
-		start += size
-		end += size
-	}
-	fmt.Println()
-}
-
 // If the bit array length can be squared to an `uint64` then it's content are rotated by the given `deg`.
 func (this *bitArray) Rotate(deg float64) BitArray {
-	sqrt := math.Sqrt(float64(this.Size()))
+	sqrt := math.Ceil(math.Sqrt(float64(this.Size())))
 	offset := sqrt/2 - 0.5
-	if sqrt != float64(uint64(sqrt)) {
-		panic("Will only rotate arrays which can square to a `uint64`.")
-	}
 	n := NewBitArrayOfLength(this.Size())
 	sin, cos := math.Sincos(deg * math.Pi / 180)
 	oldI := uint64(0)
@@ -170,7 +155,7 @@ func (this *bitArray) Rotate(deg float64) BitArray {
 			newX := math.Abs(math.Round(((oldX * cos) - (oldY * sin)) + offset)) // x’ = Xcos - Ysin
 			newY := math.Abs(math.Round(((oldX * sin) + (oldY * cos)) + offset)) // y’ = Xsin + Ycos
 			newI := uint64((newY * sqrt) + newX)
-			if newI >= 0 && newI < this.Size() {
+			if oldI >= 0 && oldI < this.Size() && newI >= 0 && newI < this.Size() {
 				n.Write(newI, this.Read(oldI))
 			}
 			oldI++
