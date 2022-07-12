@@ -22,6 +22,7 @@ type BitArray interface {
 	Between(BitArray, BitArray) bool
 	Sparsity() float64
 	Rotate(float64) BitArray
+	Move(int, int) BitArray
 
 	ToString() string
 	ToBytes() []uint8

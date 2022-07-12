@@ -163,3 +163,22 @@ func (this *bitArray) Rotate(deg float64) BitArray {
 	}
 	return n
 }
+
+func (this *bitArray) Move(x int, y int) BitArray {
+	sqrt := math.Ceil(math.Sqrt(float64(this.Size())))
+	size := int(sqrt)
+	n := NewBitArrayOfLength(this.Size())
+	oldI := uint64(0)
+	for newY := 0 - y; newY < size-y; newY++ {
+		for newX := 0 + x; newX < size+x; newX++ {
+			if newX >= 0 && newX < size && newY >= 0 && newY < size {
+				newI := uint64((newY * size) + newX)
+				if oldI >= 0 && oldI < this.Size() && newI >= 0 && newI < this.Size() {
+					n.Write(newI, this.Read(oldI))
+				}
+			}
+			oldI++
+		}
+	}
+	return n
+}

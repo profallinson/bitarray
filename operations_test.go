@@ -387,5 +387,74 @@ func TestOperations(t *testing.T) {
 
 	})
 
+	Describe("Move()", func() {
+
+		// 10011000
+		// 00111100
+		// 01000010
+		// 10000001
+		// 10000001
+		// 01000010
+		// 00100100
+		// 00011000
+		source := "1001100000111100010000101000000110000001010000100010010000011000"
+
+		It("should move the bit array by 1 row up", func() {
+			a := NewBitArrayFromString(source)
+			n := a.Move(0, 1)
+			PrintMatrix(1, n.ToString(), uint64(8))
+			AssertEqual(n.ToString(), "0011110001000010100000011000000101000010001001000001100000000000")
+		})
+
+		It("should move the bit array by 1 row down", func() {
+			a := NewBitArrayFromString(source)
+			n := a.Move(0, -1)
+			PrintMatrix(-1, n.ToString(), uint64(8))
+			AssertEqual(n.ToString(), "0000000010011000001111000100001010000001100000010100001000100100")
+		})
+
+		It("should move the bit array by 4 rows up", func() {
+			a := NewBitArrayFromString(source)
+			n := a.Move(0, 4)
+			PrintMatrix(4, n.ToString(), uint64(8))
+			AssertEqual(n.ToString(), "1000000101000010001001000001100000000000000000000000000000000000")
+		})
+
+		It("should move the bit array by 4 rows down", func() {
+			a := NewBitArrayFromString(source)
+			n := a.Move(0, -4)
+			PrintMatrix(-4, n.ToString(), uint64(8))
+			AssertEqual(n.ToString(), "0000000000000000000000000000000010011000001111000100001010000001")
+		})
+
+		It("should move the bit array by 2 rows right", func() {
+			a := NewBitArrayFromString(source)
+			n := a.Move(2, 0)
+			PrintMatrix(2, n.ToString(), uint64(8))
+			AssertEqual(n.ToString(), "0010011000001111000100000010000000100000000100000000100100000110")
+		})
+
+		It("should move the bit array by 2 rows left", func() {
+			a := NewBitArrayFromString(source)
+			n := a.Move(-2, 0)
+			PrintMatrix(-2, n.ToString(), uint64(8))
+			AssertEqual(n.ToString(), "0110000011110000000010000000010000000100000010001001000001100000")
+		})
+
+		It("should move the bit array by 5 rows right", func() {
+			a := NewBitArrayFromString(source)
+			n := a.Move(5, 0)
+			PrintMatrix(5, n.ToString(), uint64(8))
+			AssertEqual(n.ToString(), "0000010000000001000000100000010000000100000000100000000100000000")
+		})
+
+		It("should move the bit array by 5 rows left", func() {
+			a := NewBitArrayFromString(source)
+			n := a.Move(-5, 0)
+			PrintMatrix(-5, n.ToString(), uint64(8))
+			AssertEqual(n.ToString(), "0000000010000000010000000010000000100000010000001000000000000000")
+		})
+	})
+
 	Report(t)
 }
