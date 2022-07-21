@@ -183,17 +183,17 @@ func (this *bitArray) Move(x int, y int) BitArray {
 	return n
 }
 
-func (this *bitArray) Clip(low uint8, high uint8, group uint64) BitArray {
+func (this *bitArray) Clip(low uint8, high uint8, byteGroupSize uint64) BitArray {
 	source := this.ToBytes()
 	bytes := make([]byte, len(source))
-	for g := uint64(0); g <= uint64(len(source))-group; g += group {
+	for g := uint64(0); g <= uint64(len(source))-byteGroupSize; g += byteGroupSize {
 		test := make([]byte, 0)
-		for i := uint64(0); i < group; i++ {
+		for i := uint64(0); i < byteGroupSize; i++ {
 			if source[g+i] >= low && source[g+i] <= high {
 				test = append(test, source[g+i])
 			}
 		}
-		if uint64(len(test)) == group {
+		if uint64(len(test)) == byteGroupSize {
 			for i, v := range test {
 				bytes[g+uint64(i)] = v
 			}
@@ -202,21 +202,35 @@ func (this *bitArray) Clip(low uint8, high uint8, group uint64) BitArray {
 	return NewBitArrayFromBytes(bytes)
 }
 
-func (this *bitArray) Contrast(low uint8, high uint8, group uint64) BitArray {
+func (this *bitArray) Contrast(low uint8, high uint8, byteGroupSize uint64) BitArray {
 	source := this.ToBytes()
 	bytes := make([]byte, len(source))
-	for g := uint64(0); g <= uint64(len(source))-group; g += group {
+	for g := uint64(0); g <= uint64(len(source))-byteGroupSize; g += byteGroupSize {
 		test := make([]byte, 0)
-		for i := uint64(0); i < group; i++ {
+		for i := uint64(0); i < byteGroupSize; i++ {
 			if source[g+i] >= low && source[g+i] <= high {
 				test = append(test, source[g+i])
 			}
 		}
-		if uint64(len(test)) == group {
+		if uint64(len(test)) == byteGroupSize {
 			for i, _ := range test {
 				bytes[g+uint64(i)] = byte(255)
 			}
 		}
+	}
+	return NewBitArrayFromBytes(bytes)
+}
+
+func (this *bitArray) Avg(byteGroupSize uint64) BitArray {
+	source := this.ToBytes()
+	bytes := make([]byte, int((float32(uint64(len(source)) / byteGroupSize))))
+	for i := uint64(0); i < uint64(len(source)); i += byteGroupSize {
+		byteGroup := source[i : i+byteGroupSize]
+		sum := 0
+		for _, v := range byteGroup {
+			sum += int(v)
+		}
+		bytes[i/byteGroupSize] = byte(sum / len(byteGroup))
 	}
 	return NewBitArrayFromBytes(bytes)
 }

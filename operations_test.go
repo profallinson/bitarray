@@ -470,7 +470,7 @@ func TestOperations(t *testing.T) {
 				case i <= 9 && a[i] != byte(0):
 					test = false
 				}
-				fmt.Println(source[i], a[i])
+				// fmt.Println(source[i], a[i])
 			}
 			AssertEqual(test, true)
 		})
@@ -486,7 +486,7 @@ func TestOperations(t *testing.T) {
 				case (i == 10 || i == 11) && a[i] != byte(a[i]):
 					test = false
 				}
-				fmt.Println(source[i], a[i])
+				// fmt.Println(source[i], a[i])
 			}
 			AssertEqual(test, true)
 		})
@@ -504,7 +504,7 @@ func TestOperations(t *testing.T) {
 				case (i <= 5 || i >= 15 || (i >= 9 && i <= 11)) && a[i] != byte(0):
 					test = false
 				}
-				fmt.Println(source[i], a[i])
+				// fmt.Println(source[i], a[i])
 			}
 			AssertEqual(test, true)
 		})
@@ -523,7 +523,7 @@ func TestOperations(t *testing.T) {
 				case i <= 9 && a[i] != byte(0):
 					test = false
 				}
-				fmt.Println(source[i], a[i])
+				// fmt.Println(source[i], a[i])
 			}
 			AssertEqual(test, true)
 		})
@@ -539,7 +539,7 @@ func TestOperations(t *testing.T) {
 				case (i == 10 || i == 11) && a[i] != byte(255):
 					test = false
 				}
-				fmt.Println(source[i], a[i])
+				// fmt.Println(source[i], a[i])
 			}
 			AssertEqual(test, true)
 		})
@@ -557,7 +557,56 @@ func TestOperations(t *testing.T) {
 				case (i <= 5 || i >= 15 || (i >= 9 && i <= 11)) && a[i] != byte(0):
 					test = false
 				}
-				fmt.Println(source[i], a[i])
+				// fmt.Println(source[i], a[i])
+			}
+			AssertEqual(test, true)
+		})
+
+	})
+
+	Describe("Scale()", func() {
+
+		It("should return a length of 16", func() {
+			source := make([]byte, 16)
+			a := NewBitArrayFromBytes(source).Avg(1).ToBytes()
+			AssertEqual(len(a), 16)
+		})
+
+		It("should return a length of 8", func() {
+			source := make([]byte, 16)
+			a := NewBitArrayFromBytes(source).Avg(2).ToBytes()
+			AssertEqual(len(a), 8)
+		})
+
+		It("should return a length of 32", func() {
+			source := make([]byte, 64)
+			a := NewBitArrayFromBytes(source).Avg(4).ToBytes()
+			AssertEqual(len(a), 16)
+		})
+
+		It("should return a length of 32", func() {
+			source := []byte{0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150}
+			a := NewBitArrayFromBytes(source).Avg(2).ToBytes()
+			test := true
+			for i, _ := range a {
+				switch {
+				case a[0] != byte(5):
+					test = false
+				case a[1] != byte(25):
+					test = false
+				case a[2] != byte(45):
+					test = false
+				case a[3] != byte(65):
+					test = false
+				case a[4] != byte(85):
+					test = false
+				case a[5] != byte(105):
+					test = false
+				case a[6] != byte(125):
+					test = false
+				case a[7] != byte(145):
+					test = false
+				}
 			}
 			AssertEqual(test, true)
 		})
