@@ -223,7 +223,7 @@ func (this *bitArray) Contrast(low uint8, high uint8, byteGroupSize uint64) BitA
 
 func (this *bitArray) Avg(byteGroupSize uint64) BitArray {
 	source := this.ToBytes()
-	bytes := make([]byte, int((float32(uint64(len(source)) / byteGroupSize))))
+	bytes := make([]byte, int(math.Ceil((float64(uint64(len(source)) / byteGroupSize)))))
 	for i := uint64(0); i < uint64(len(source)); i += byteGroupSize {
 		byteGroup := source[i : i+byteGroupSize]
 		sum := 0
@@ -233,4 +233,13 @@ func (this *bitArray) Avg(byteGroupSize uint64) BitArray {
 		bytes[i/byteGroupSize] = byte(sum / len(byteGroup))
 	}
 	return NewBitArrayFromBytes(bytes)
+}
+
+func (this *bitArray) Binarify(low uint8, high uint8) BitArray {
+	source := this.Contrast(low, high, 1).ToBytes()
+	bitArray := NewBitArrayOfLength(uint64(len(source)))
+	for i, v := range source {
+		bitArray.Write(uint64(i), v >= low)
+	}
+	return bitArray
 }

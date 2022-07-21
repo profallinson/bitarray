@@ -1,7 +1,7 @@
 package bitarray
 
 import (
-	"fmt"
+	// "fmt"
 	. "github.com/ricallinson/simplebdd"
 	"testing"
 )
@@ -588,7 +588,7 @@ func TestOperations(t *testing.T) {
 			source := []byte{0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150}
 			a := NewBitArrayFromBytes(source).Avg(2).ToBytes()
 			test := true
-			for i, _ := range a {
+			for range a {
 				switch {
 				case a[0] != byte(5):
 					test = false
@@ -609,6 +609,19 @@ func TestOperations(t *testing.T) {
 				}
 			}
 			AssertEqual(test, true)
+		})
+
+	})
+
+	Describe("Binarify()", func() {
+
+		It("should return ", func() {
+			source := make([]byte, 64)
+			for i, _ := range source {
+				source[i] = byte(i + 50)
+			}
+			a := NewBitArrayFromBytes(source).Binarify(100, 255).ToString()
+			AssertEqual(a, "0000000000000000000000000000000000000000000000000011111111111111")
 		})
 
 	})

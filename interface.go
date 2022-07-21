@@ -26,6 +26,7 @@ type BitArray interface {
 	Clip(uint8, uint8, uint64) BitArray
 	Contrast(uint8, uint8, uint64) BitArray
 	Avg(uint64) BitArray
+	Binarify(uint8, uint8) BitArray
 
 	ToString() string
 	ToBytes() []uint8
