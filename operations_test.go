@@ -1,7 +1,7 @@
 package bitarray
 
 import (
-	// "fmt"
+	"fmt"
 	. "github.com/ricallinson/simplebdd"
 	"testing"
 )
@@ -457,6 +457,59 @@ func TestOperations(t *testing.T) {
 		})
 	})
 
+	Describe("Clip()", func() {
+
+		It("should return a byte array of 0s with the last five set to 255s", func() {
+			source := []byte{0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150}
+			a := NewBitArrayFromBytes(source).Clip(100, 255, 1).ToBytes()
+			test := true
+			for i, _ := range a {
+				switch {
+				case i >= 10 && i <= 15 && a[i] != byte(a[i]):
+					test = false
+				case i <= 9 && a[i] != byte(0):
+					test = false
+				}
+				fmt.Println(source[i], a[i])
+			}
+			AssertEqual(test, true)
+		})
+
+		It("should return a byte array of 0s with just two set to 255s", func() {
+			source := []byte{0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150}
+			a := NewBitArrayFromBytes(source).Clip(100, 110, 1).ToBytes()
+			test := true
+			for i, _ := range a {
+				switch {
+				case i < 10 && i > 11 && a[i] != byte(0):
+					test = false
+				case (i == 10 || i == 11) && a[i] != byte(a[i]):
+					test = false
+				}
+				fmt.Println(source[i], a[i])
+			}
+			AssertEqual(test, true)
+		})
+
+		It("should return a byte array of 0s with two sets of three set to 255s", func() {
+			source := []byte{100, 100, 20, 30, 40, 100, 100, 100, 100, 90, 100, 110, 120, 130, 140, 150}
+			a := NewBitArrayFromBytes(source).Clip(100, 255, 3).ToBytes()
+			test := true
+			for i, _ := range a {
+				switch {
+				case i >= 6 && i <= 8 && a[i] != byte(a[i]):
+					test = false
+				case i >= 12 && i <= 14 && a[i] != byte(a[i]):
+					test = false
+				case (i <= 5 || i >= 15 || (i >= 9 && i <= 11)) && a[i] != byte(0):
+					test = false
+				}
+				fmt.Println(source[i], a[i])
+			}
+			AssertEqual(test, true)
+		})
+	})
+
 	Describe("Contrast()", func() {
 
 		It("should return a byte array of 0s with the last five set to 255s", func() {
@@ -464,12 +517,13 @@ func TestOperations(t *testing.T) {
 			a := NewBitArrayFromBytes(source).Contrast(100, 255, 1).ToBytes()
 			test := true
 			for i, _ := range a {
-				if i >= 10 && i <= 15 && a[i] != byte(255) {
+				switch {
+				case i >= 10 && i <= 15 && a[i] != byte(255):
 					test = false
-				} else if i <= 9 && a[i] != byte(0) {
+				case i <= 9 && a[i] != byte(0):
 					test = false
 				}
-				// fmt.Println(source[i], a[i])
+				fmt.Println(source[i], a[i])
 			}
 			AssertEqual(test, true)
 		})
@@ -479,12 +533,13 @@ func TestOperations(t *testing.T) {
 			a := NewBitArrayFromBytes(source).Contrast(100, 110, 1).ToBytes()
 			test := true
 			for i, _ := range a {
-				if i >= 10 && i <= 11 && a[i] != byte(255) {
+				switch {
+				case i < 10 && i > 11 && a[i] != byte(0):
 					test = false
-				} else if (i <= 9 || i >= 12) && a[i] != byte(0) {
+				case (i == 10 || i == 11) && a[i] != byte(255):
 					test = false
 				}
-				// fmt.Println(source[i], a[i])
+				fmt.Println(source[i], a[i])
 			}
 			AssertEqual(test, true)
 		})
@@ -494,14 +549,15 @@ func TestOperations(t *testing.T) {
 			a := NewBitArrayFromBytes(source).Contrast(100, 255, 3).ToBytes()
 			test := true
 			for i, _ := range a {
-				if i >= 6 && i <= 8 && a[i] != byte(255) {
+				switch {
+				case i >= 6 && i <= 8 && a[i] != byte(255):
 					test = false
-				} else if i >= 12 && i <= 14 && a[i] != byte(255) {
+				case i >= 12 && i <= 14 && a[i] != byte(255):
 					test = false
-				} else if (i <= 5 || i >= 15 || (i >= 9 && i <= 11)) && a[i] != byte(0) {
+				case (i <= 5 || i >= 15 || (i >= 9 && i <= 11)) && a[i] != byte(0):
 					test = false
 				}
-				// fmt.Println(source[i], a[i])
+				fmt.Println(source[i], a[i])
 			}
 			AssertEqual(test, true)
 		})
