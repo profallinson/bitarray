@@ -23,7 +23,7 @@ type BitArray interface {
 	Sparsity() float64
 	Rotate(float64) BitArray
 	Move(int, int) BitArray
-	Contrast(uint8, uint64) BitArray
+	Contrast(uint8, uint8, uint64) BitArray
 
 	ToString() string
 	ToBytes() []uint8

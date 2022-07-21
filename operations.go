@@ -183,13 +183,13 @@ func (this *bitArray) Move(x int, y int) BitArray {
 	return n
 }
 
-func (this *bitArray) Contrast(low uint8, group uint64) BitArray {
+func (this *bitArray) Contrast(low uint8, high uint8, group uint64) BitArray {
 	source := this.ToBytes()
 	bytes := make([]byte, len(source))
 	for g := uint64(0); g <= uint64(len(source))-group; g += group {
 		test := make([]byte, 0)
 		for i := uint64(0); i < group; i++ {
-			if source[g+i] >= low {
+			if source[g+i] >= low && source[g+i] <= high {
 				test = append(test, source[g+i])
 			}
 		}
