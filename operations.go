@@ -1,7 +1,7 @@
 package bitarray
 
 import (
-	// "fmt"
+	"fmt"
 	"math"
 	"math/bits"
 )
@@ -22,7 +22,7 @@ func (this *bitArray) Equal(a BitArray) bool {
 // Returns a new array with 'true' where 'a' and 'b' differ and 'false' elsewhere.
 func (this *bitArray) Difference(a BitArray) BitArray {
 	if this.Size() != a.Size() {
-		panic("BitArrays MUST be the same length.")
+		panic(fmt.Sprintf("BitArrays MUST be the same length, got %d and %d", this.Size(), a.Size()))
 	}
 	c := NewBitArrayOfLength(this.Size())
 	for i := range this.blocks {
@@ -66,7 +66,7 @@ func (this *bitArray) Complement() BitArray {
 // Returns a new array where the 'true' values of both 'a' and 'b' are set 'true' with 'false' elsewhere.
 func (this *bitArray) Union(a BitArray) BitArray {
 	if this.Size() != a.Size() {
-		panic("BitArrays MUST be the same length.")
+		panic(fmt.Sprintf("BitArrays MUST be the same length, got %d and %d", this.Size(), a.Size()))
 	}
 	c := NewBitArrayOfLength(this.Size())
 	for i := range this.blocks {
@@ -78,7 +78,7 @@ func (this *bitArray) Union(a BitArray) BitArray {
 // Returns the number of 'true' values in 'this' that are not contained in 'a'.
 func (this *bitArray) remainderInt(a BitArray) (int, int) {
 	if this.Size() != a.Size() {
-		panic("BitArrays MUST be the same length.")
+		panic(fmt.Sprintf("BitArrays MUST be the same length, got %d and %d", this.Size(), a.Size()))
 	}
 	t := 0 // Count of 'true' values in 'a'.
 	c := 0 // Count of 'true' values in 'a' that are not in the same position in 'b'.
@@ -109,7 +109,7 @@ func (this *bitArray) Remainder(a BitArray) float32 {
 // Returns the number of the values that match between 'a' and 'b'.
 func (this *bitArray) overlapInt(a BitArray) (int, int) {
 	if this.Size() != a.Size() {
-		panic("BitArrays MUST be the same length.")
+		panic(fmt.Sprintf("BitArrays MUST be the same length, got %d and %d", this.Size(), a.Size()))
 	}
 	o := 0
 	for i := range this.blocks {
@@ -239,7 +239,7 @@ func (this *bitArray) Binarify(low uint8, high uint8) BitArray {
 	source := this.Contrast(low, high, 1).ToBytes()
 	bitArray := NewBitArrayOfLength(uint64(len(source)))
 	for i, v := range source {
-		bitArray.Write(uint64(i), v >= low)
+		bitArray.Write(uint64(i), v >= low && v <= high)
 	}
 	return bitArray
 }
