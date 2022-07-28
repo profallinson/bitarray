@@ -140,7 +140,7 @@ func (this *bitArray) Between(a BitArray, b BitArray) bool {
 
 // Returns the percentage of 'true' bits.
 func (this *bitArray) Sparsity() float64 {
-	return float64(this.Norm()) / float64(this.Size()) * 100
+	return float64(this.Norm()) / float64(this.Size())
 }
 
 // If the bit array length can be squared to an `uint64` then it's content are rotated by the given `deg`.

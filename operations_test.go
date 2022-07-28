@@ -315,12 +315,12 @@ func TestOperations(t *testing.T) {
 
 		It("should return 1.5625", func() {
 			a := NewBitArrayFromString("1")
-			AssertEqual(a.Sparsity(), 1.5625)
+			AssertEqual(a.Sparsity(), 0.015625)
 		})
 
 		It("should return 100.0", func() {
 			a := NewBitArray(1).Complement()
-			AssertEqual(a.Sparsity(), 100.0)
+			AssertEqual(a.Sparsity(), 1.0)
 		})
 
 	})
