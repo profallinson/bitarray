@@ -27,7 +27,7 @@ func NewBitArrayOfLength(length uint64) BitArray {
 	return createBitArray(blocks)
 }
 
-// Returns an array of size 'blocks' initialized with the given 'sparsity'.
+// Returns an array of size 'bits' initialized with the given 'sparsity'.
 func NewBitArrayOfSparsity(length uint64, sparsity float32) BitArray {
 	if sparsity < 0 || sparsity > 1 {
 		panic("Sparsity must be between 0 and 1")
