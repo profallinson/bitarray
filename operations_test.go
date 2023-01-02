@@ -88,6 +88,10 @@ func TestOperations(t *testing.T) {
 			AssertEqual(a.Norm(), uint64(5))
 		})
 
+		It("should return 0", func() {
+			a := NewBitArrayOfLength(64)
+			AssertEqual(a.Norm(), uint64(0))
+		})
 	})
 
 	Describe("Distance()", func() {
