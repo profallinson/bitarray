@@ -32,6 +32,9 @@ func NewBitArrayOfSparsity(length uint64, sparsity float32) BitArray {
 	if sparsity < 0 || sparsity > 1 {
 		panic("Sparsity must be between 0 and 1")
 	}
+	if sparsity == 0 {
+		sparsity = float32(rand.Float64())
+	}
 	this := NewBitArrayOfLength(length)
 	space := uint64(float32(length) * sparsity)
 	for i := uint64(0); i < space; i++ {
