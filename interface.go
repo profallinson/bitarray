@@ -11,6 +11,7 @@ type BitArray interface {
 	Equal(BitArray) bool
 	Difference(BitArray) BitArray
 	Distance(BitArray) uint64
+	DistancePercentage(BitArray) float32
 	Norm() uint64
 	Complement() BitArray
 	Copy() BitArray

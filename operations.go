@@ -45,6 +45,10 @@ func (this *bitArray) Distance(a BitArray) uint64 {
 	return this.Difference(a).Norm()
 }
 
+func (this *bitArray) DistancePercentage(a BitArray) float32 {
+	return float32(this.Distance(a)) / float32(this.Size())
+}
+
 // Returns a deep copy of the given array.
 func (this *bitArray) Copy() BitArray {
 	c := NewBitArrayOfLength(this.Size())
