@@ -11,15 +11,15 @@ type BitArray interface {
 	Equal(BitArray) bool
 	Difference(BitArray) BitArray
 	Distance(BitArray) uint64
-	DistancePercentage(BitArray) float32
+	DistancePercentage(BitArray) float64
 	Norm() uint64
 	Complement() BitArray
 	Copy() BitArray
 	Union(BitArray) BitArray
 	RemainderInt(BitArray) int
-	Remainder(BitArray) float32
+	Remainder(BitArray) float64
 	OverlapInt(BitArray) int
-	Overlap(BitArray) float32
+	Overlap(BitArray) float64
 	Between(BitArray, BitArray) bool
 	Sparsity() float64
 	Rotate(float64) BitArray

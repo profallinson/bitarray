@@ -45,8 +45,8 @@ func (this *bitArray) Distance(a BitArray) uint64 {
 	return this.Difference(a).Norm()
 }
 
-func (this *bitArray) DistancePercentage(a BitArray) float32 {
-	return float32(this.Distance(a)) / float32(this.Size())
+func (this *bitArray) DistancePercentage(a BitArray) float64 {
+	return float64(this.Distance(a)) / float64(this.Size())
 }
 
 // Returns a deep copy of the given array.
@@ -105,9 +105,9 @@ func (this *bitArray) RemainderInt(a BitArray) int {
 }
 
 // Returns the percentage of 'true' values in 'a' that are not contained in 'b'.
-func (this *bitArray) Remainder(a BitArray) float32 {
+func (this *bitArray) Remainder(a BitArray) float64 {
 	t, c := this.remainderInt(a)
-	return float32(c) / float32(t)
+	return float64(c) / float64(t)
 }
 
 // Returns the number of the values that match between 'a' and 'b'.
@@ -119,6 +119,12 @@ func (this *bitArray) overlapInt(a BitArray) (int, int) {
 	for i := range this.blocks {
 		o += bits.OnesCount64(uint64(this.GetBlock(i) & a.GetBlock(i)))
 	}
+	// The above bitwise operation is not doing what I'd expect.
+	// for i := uint64(0); i < this.Size(); i++ {
+	// 	if this.Read(i) == a.Read(i) {
+	// 		o++
+	// 	}
+	// }
 	return int(this.Size()), o
 }
 
@@ -129,9 +135,9 @@ func (this *bitArray) OverlapInt(a BitArray) int {
 }
 
 // Returns the percentage of the values that match between 'a' and 'b'.
-func (this *bitArray) Overlap(a BitArray) float32 {
+func (this *bitArray) Overlap(a BitArray) float64 {
 	s, o := this.overlapInt(a)
-	return float32(o) / float32(s)
+	return float64(o) / float64(s)
 }
 
 // Returns 'true' if the current BitArray is found between 'a' and 'b'.

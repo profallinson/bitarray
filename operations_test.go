@@ -215,13 +215,13 @@ func TestOperations(t *testing.T) {
 		It("should ", func() {
 			a := NewBitArrayFromString("10000")
 			b := NewBitArrayFromString("01001")
-			AssertEqual(a.Remainder(b), float32(1))
+			AssertEqual(a.Remainder(b), float64(1))
 		})
 
 		It("should ", func() {
 			a := NewBitArrayFromString("11111")
 			b := NewBitArrayFromString("10001")
-			AssertEqual(a.Remainder(b), float32(0.6))
+			AssertEqual(a.Remainder(b), float64(0.6))
 		})
 
 	})
@@ -267,13 +267,13 @@ func TestOperations(t *testing.T) {
 		It("should return 0.03125", func() {
 			a := NewBitArrayFromString("10010")
 			b := NewBitArrayFromString("10110")
-			AssertEqual(a.Overlap(b), float32(0.03125))
+			AssertEqual(a.Overlap(b), float64(0.03125))
 		})
 
 		It("should return 0.0", func() {
 			a := NewBitArrayFromString("11110")
 			b := NewBitArrayFromString("00001")
-			AssertEqual(a.Overlap(b), float32(0.0))
+			AssertEqual(a.Overlap(b), float64(0.0))
 		})
 
 	})
