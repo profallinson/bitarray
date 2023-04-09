@@ -94,30 +94,30 @@ func TestOperations(t *testing.T) {
 		})
 	})
 
-	Describe("Distance()", func() {
+	Describe("DistanceInt()", func() {
 
 		It("should return 0", func() {
 			a := NewBitArrayFromString("00001")
 			b := NewBitArrayFromString("00001")
-			AssertEqual(a.Distance(b), uint64(0))
+			AssertEqual(a.DistanceInt(b), uint64(0))
 		})
 
 		It("should return 1", func() {
 			a := NewBitArrayFromString("00001")
 			b := NewBitArrayFromString("00000")
-			AssertEqual(a.Distance(b), uint64(1))
+			AssertEqual(a.DistanceInt(b), uint64(1))
 		})
 
 		It("should return 2", func() {
 			a := NewBitArrayFromString("00001")
 			b := NewBitArrayFromString("10000")
-			AssertEqual(a.Distance(b), uint64(2))
+			AssertEqual(a.DistanceInt(b), uint64(2))
 		})
 
 		It("should return 5", func() {
 			a := NewBitArrayFromString("10001")
 			b := NewBitArrayFromString("01110")
-			AssertEqual(a.Distance(b), uint64(5))
+			AssertEqual(a.DistanceInt(b), uint64(5))
 		})
 
 	})

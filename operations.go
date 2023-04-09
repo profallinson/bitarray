@@ -41,12 +41,12 @@ func (this *bitArray) Norm() uint64 {
 }
 
 // Returns the bit count of the distance between 'a' and 'b'.
-func (this *bitArray) Distance(a BitArray) uint64 {
+func (this *bitArray) DistanceInt(a BitArray) uint64 {
 	return this.Difference(a).Norm()
 }
 
-func (this *bitArray) DistancePercentage(a BitArray) float64 {
-	return float64(this.Distance(a)) / float64(this.Size())
+func (this *bitArray) Distance(a BitArray) float64 {
+	return float64(this.DistanceInt(a)) / float64(this.Size())
 }
 
 // Returns a deep copy of the given array.
