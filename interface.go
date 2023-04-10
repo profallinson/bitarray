@@ -22,6 +22,7 @@ type BitArray interface {
 	Overlap(BitArray) float64
 	Between(BitArray, BitArray) bool
 	Sparsity() float64
+	
 	Rotate(float64) BitArray
 	Move(int, int) BitArray
 	Clip(uint8, uint8, uint64) BitArray
