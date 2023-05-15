@@ -4,6 +4,37 @@ import (
 	"math"
 )
 
+func (this *bitArray) Radius(x, y, r int) BitArray {
+	max := int(math.Sqrt(float64(this.Size())))
+	xStart := x - r
+	yStart := y - r
+	xEnd := x + r
+	yEnd := y + r
+	if xStart < 0 {
+		xStart = 0
+	}
+	if yStart < 0 {
+		yStart = 0
+	}
+	if xEnd > max {
+		xEnd = max
+	}
+	if yEnd > max {
+		yEnd = max
+	}
+	ret := make([]bool, 0)
+	for ; yStart < yEnd; yStart++ {
+		for i := xStart; i < xEnd; i++ {
+			ret = append(ret, this.Read(uint64(yStart*max+i)))
+		}
+	}
+	return NewBitArrayFromBools(ret)
+}
+
+/*
+	These are old ideas but here just in case.
+*/
+
 // If the bit array length can be squared to an `uint64` then it's content are rotated by the given `deg`.
 func (this *bitArray) Rotate(deg float64) BitArray {
 	sqrt := math.Ceil(math.Sqrt(float64(this.Size())))

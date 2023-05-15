@@ -23,6 +23,7 @@ type BitArray interface {
 	Between(BitArray, BitArray) bool
 	Sparsity() float64
 
+	Radius(int, int, int) BitArray
 	Rotate(float64) BitArray
 	Move(int, int) BitArray
 	Clip(uint8, uint8, uint64) BitArray
