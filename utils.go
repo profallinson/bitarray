@@ -24,6 +24,9 @@ func PrintMatrix(deg float64, s string, size uint64) {
 
 // Returns a string of given width and height determined the size of the BitArray.
 func Print(a BitArray, width int) string {
+	if a == nil {
+		return ""
+	}
 	ret := ""
 	row := width
 	for y := uint64(0); y < a.Size(); y++ {
