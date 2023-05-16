@@ -115,15 +115,15 @@ func (this *bitArray) overlapInt(a BitArray) (int, int) {
 		panic(fmt.Sprintf("BitArrays MUST be the same length, got %d and %d", this.Size(), a.Size()))
 	}
 	o := 0
-	for i := range this.blocks {
-		o += bits.OnesCount64(uint64(this.GetBlock(i) & a.GetBlock(i)))
-	}
-	// The above bitwise operation is not doing what I'd expect.
-	// for i := uint64(0); i < this.Size(); i++ {
-	// 	if this.Read(i) == a.Read(i) {
-	// 		o++
-	// 	}
+	// for i := range this.blocks {
+	// 	o += bits.OnesCount64(uint64(this.GetBlock(i) & a.GetBlock(i)))
 	// }
+	// The above bitwise operation is not doing what I'd expect.
+	for i := uint64(0); i < this.Size(); i++ {
+		if this.Read(i) == a.Read(i) {
+			o++
+		}
+	}
 	return int(this.Size()), o
 }
 
